@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Stickify - Premium Stickers</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #fffaf5;
+            color: #222;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        header {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff5c5c;
+        }
+
+        .logo span {
+            color: #222;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #ff5c5c;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            padding: 9px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        .cart {
+            background: #ff5c5c;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 8%;
+            background: linear-gradient(135deg, #fff0e8, #ffe0e5);
+        }
+
+        .hero-text {
+            width: 50%;
+        }
+
+        .hero-text h1 {
+            font-size: 60px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            color: #ff5c5c;
+        }
+
+        .hero-text p {
+            font-size: 19px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            background: #ff5c5c;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .shop-btn:hover {
+            background: #e84343;
+            transform: translateY(-3px);
+        }
+
+        .hero-stickers {
+            width: 45%;
+            display: grid;
+            grid-template-columns: repeat(2, 150px);
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .sticker {
+            width: 150px;
+            height: 150px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            transform: rotate(-5deg);
+        }
+
+        .sticker:nth-child(2) {
+            transform: rotate(7deg);
+        }
+
+        .sticker:nth-child(3) {
+            transform: rotate(6deg);
+        }
+
+        .sticker:nth-child(4) {
+            transform: rotate(-8deg);
+        }
+
+        /* ================= CATEGORIES ================= */
+
+        .section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #777;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .category {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .category:hover {
+            transform: translateY(-8px);
+        }
+
+        .category-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        /* ================= PRODUCTS ================= */
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .product:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+            background: #fff0f0;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .price {
+            color: #ff5c5c;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .add-cart {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            background: #222;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-cart:hover {
+            background: #ff5c5c;
+        }
+
+        .wishlist {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* ================= OFFER ================= */
+
+        .offer {
+            margin: 30px 8%;
+            padding: 50px;
+            border-radius: 25px;
+            background: #222;
+            color: white;
+            text-align: center;
+        }
+
+        .offer h2 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .offer p {
+            margin-bottom: 25px;
+            color: #ddd;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #181818;
+            color: white;
+            padding: 50px 8%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        footer a {
+            display: block;
+            color: #bbb;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        footer a:hover {
+            color: #ff5c5c;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #444;
+            margin-top: 40px;
+            padding-top: 20px;
+            color: #aaa;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                width: 100%;
+                margin-bottom: 50px;
+            }
+
+            .hero-text h1 {
+                font-size: 45px;
+            }
+
+            .hero-stickers {
+                width: 100%;
+            }
+
+            .categories,
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .search-box {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 38px;
+            }
+
+            .hero-stickers {
+                grid-template-columns: repeat(2, 120px);
+            }
+
+            .sticker {
+                width: 120px;
+                height: 120px;
+                font-size: 55px;
+            }
+
+            .categories,
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <div class="logo">
+            Stick<span>ify</span> ✨
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#categories">Categories</a>
+            <a href="#products">Shop</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-right">
+
+            <input
+                type="text"
+                class="search-box"
+                id="search"
+                placeholder="Search stickers..."
+                onkeyup="searchProducts()"
+            >
+
+            <div class="cart">
+                🛒 Cart <span id="cart-count">0</span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-text">
+
+            <h1>
+                Stick It.<br>
+                <span>Love It.</span>
+            </h1>
+
+            <p>
+                Premium quality stickers made to make your
+                laptops, phones, bottles and notebooks
+                more colorful.
+            </p>
+
+            <a href="#products" class="shop-btn">
+                Shop Stickers →
+            </a>
+
+        </div>
+
+
+        <div class="hero-stickers">
+
+            <div class="sticker">😎</div>
+            <div class="sticker">🔥</div>
+            <div class="sticker">🚀</div>
+            <div class="sticker">🌈</div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CATEGORIES ================= -->
+
+    <section class="section" id="categories">
+
+        <div class="section-title">
+
+            <h2>Shop By Category</h2>
+
+            <p>
+                Find the perfect sticker for your personality.
+            </p>
+
+        </div>
+
+
+        <div class="categories">
+
+            <div class="category">
+                <div class="category-icon">😎</div>
+                <h3>Funny</h3>
+                <p>Funny & crazy stickers</p>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">🎮</div>
+                <h3>Gaming</h3>
+                <p>For every gamer</p>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">💻</div>
+                <h3>Tech</h3>
+                <p>Tech & coding stickers</p>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">🌸</div>
+                <h3>Aesthetic</h3>
+                <p>Beautiful aesthetic designs</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PRODUCTS ================= -->
+
+    <section class="section" id="products">
+
+        <div class="section-title">
+
+            <h2>Popular Stickers</h2>
+
+            <p>
+                Our best-selling sticker collection.
+            </p>
+
+        </div>
+
+
+        <div class="products" id="product-list">
+
+
+            <!-- Product 1 -->
+
+            <div class="product">
+
+                <button class="wishlist"
+                        onclick="addWishlist(this)">
+                    ♡
+                </button>
+
+                <div class="product-image">
+                    😎
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Cool Dude Sticker</h3>
+
+                    <p>
+                        Waterproof vinyl sticker
+                    </p>
+
+                    <div class="price">
+                        ₹49
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart('Cool Dude Sticker',49)">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 2 -->
+
+            <div class="product">
+
+                <button class="wishlist"
+                        onclick="addWishlist(this)">
+                    ♡
+                </button>
+
+                <div class="product-image">
+                    🚀
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Space Rocket</h3>
+
+                    <p>
+                        Premium glossy sticker
+                    </p>
+
+                    <div class="price">
+                        ₹59
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart('Space Rocket',59)">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 3 -->
+
+            <div class="product">
+
+                <button class="wishlist"
+                        onclick="addWishlist(this)">
+                    ♡
+                </button>
+
+                <div class="product-image">
+                    🎮
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Gaming Sticker</h3>
+
+                    <p>
+                        Perfect for gaming laptops
+                    </p>
+
+                    <div class="price">
+                        ₹69
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart('Gaming Sticker',69)">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 4 -->
+
+            <div class="product">
+
+                <button class="wishlist"
+                        onclick="addWishlist(this)">
+                    ♡
+                </button>
+
+                <div class="product-image">
+                    🌸
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Aesthetic Flower</h3>
+
+                    <p>
+                        Matte finish sticker
+                    </p>
+
+                    <div class="price">
+                        ₹39
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart('Aesthetic Flower',39)">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 5 -->
+
+            <div class="product">
+
+                <button class="wishlist"
+                        onclick="addWishlist(this)">
+                    ♡
+                </button>
+
+                <div class="product-image">
+                    💀
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Skull Sticker</h3>
+
+                    <p>
+                        High quality vinyl
+                    </p>
+
+                    <div class="price">
+                        ₹49
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart('Skull Sticker',49)">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 6 -->
+
+            <div class="product">
+
+                <button class="wishlist"
+                        onclick="addWishlist(this)">
+                    ♡
+                </button>
+
+                <div class="product-image">
+                    🐱
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Cute Cat</h3>
+
+                    <p>
+                        Cute waterproof sticker
+                    </p>
+
+                    <div class="price">
+                        ₹45
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart('Cute Cat',45)">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 7 -->
+
+            <div class="product">
+
+                <button class="wishlist"
+                        onclick="addWishlist(this)">
+                    ♡
+                </button>
+
+                <div class="product-image">
+                    💻
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Developer Sticker</h3>
+
+                    <p>
+                        Perfect for programmers
+                    </p>
+
+                    <div class="price">
+                        ₹59
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart('Developer Sticker',59)">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 8 -->
+
+            <div class="product">
+
+                <button class="wishlist"
+                        onclick="addWishlist(this)">
+                    ♡
+                </button>
+
+                <div class="product-image">
+                    🔥
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Fire Sticker</h3>
+
+                    <p>
+                        Premium waterproof vinyl
+                    </p>
+
+                    <div class="price">
+                        ₹49
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart('Fire Sticker',49)">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= OFFER ================= -->
+
+    <section class="offer">
+
+        <h2>🎉 Get 20% OFF</h2>
+
+        <p>
+            Get 20% off your first sticker order.
+        </p>
+
+        <a href="#products" class="shop-btn">
+            Shop Now
+        </a>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="section" id="about">
+
+        <div class="section-title">
+
+            <h2>Why Stickify?</h2>
+
+            <p>
+                We make stickers that are built to last.
+            </p>
+
+        </div>
+
+
+        <div class="categories">
+
+            <div class="category">
+
+                <div class="category-icon">
+                    💧
+                </div>
+
+                <h3>Waterproof</h3>
+
+                <p>
+                    Designed to survive water and everyday use.
+                </p>
+
+            </div>
+
+
+            <div class="category">
+
+                <div class="category-icon">
+                    ⭐
+                </div>
+
+                <h3>Premium Quality</h3>
+
+                <p>
+                    High-quality vinyl with beautiful printing.
+                </p>
+
+            </div>
+
+
+            <div class="category">
+
+                <div class="category-icon">
+                    📦
+                </div>
+
+                <h3>Fast Delivery</h3>
+
+                <p>
+                    Get your stickers delivered quickly.
+                </p>
+
+            </div>
+
+
+            <div class="category">
+
+                <div class="category-icon">
+                    ❤️
+                </div>
+
+                <h3>Made With Love</h3>
+
+                <p>
+                    Every design is created with creativity.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer id="contact">
+
+        <div class="footer-content">
+
+            <div>
+
+                <h3>Stickify ✨</h3>
+
+                <p>
+                    Premium stickers for laptops,
+                    phones, bottles and everything
+                    you love.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>Quick Links</h3>
+
+                <a href="#home">Home</a>
+                <a href="#products">Shop</a>
+                <a href="#about">About</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>Categories</h3>
+
+                <a href="#">Gaming</a>
+                <a href="#">Funny</a>
+                <a href="#">Aesthetic</a>
+                <a href="#">Tech</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>Contact</h3>
+
+                <a href="mailto:hello@stickify.com">
+                    hello@stickify.com
+                </a>
+
+                <a href="#">
+                    Instagram
+                </a>
+
+                <a href="#">
+                    Facebook
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 Stickify. All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        let cartCount = 0;
+
+        let cartItems = [];
+
+
+        function addToCart(name, price) {
+
+            cartCount++;
+
+            cartItems.push({
+                name: name,
+                price: price
+            });
+
+            document.getElementById("cart-count")
+                    .innerText = cartCount;
+
+            alert(name + " added to cart!");
+
+        }
+
+
+        function addWishlist(button) {
+
+            if (button.innerText === "♡") {
+
+                button.innerText = "♥";
+                button.style.color = "red";
+
+            } else {
+
+                button.innerText = "♡";
+                button.style.color = "black";
+
+            }
+
+        }
+
+
+        function searchProducts() {
+
+            let input =
+                document.getElementById("search")
+                .value
+                .toLowerCase();
+
+            let products =
+                document.querySelectorAll(".product");
+
+            products.forEach(function(product) {
+
+                let name =
+                    product
+                    .querySelector("h3")
+                    .innerText
+                    .toLowerCase();
+
+                if (name.includes(input)) {
+
+                    product.style.display = "block";
+
+                } else {
+
+                    product.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>
